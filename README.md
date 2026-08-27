@@ -9,3 +9,9 @@ Ran this command in case I want to use venv later.
 ```
 pipenv install --site-packages
 ```
+
+## Documentation
+
+- Python Wrapper Tutorial: https://pygobject.gnome.org/tutorials/index.html
+- Draw Are Tutorial: https://gnome.pages.gitlab.gnome.org/gtk/gtk4/class.DrawingArea.html
+- API Reference: https://gnome.pages.gitlab.gnome.org/gtk/gtk4/index.html

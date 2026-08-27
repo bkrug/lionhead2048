@@ -31,6 +31,13 @@ class MyApp(Adw.Application):
         btnRight = builder.get_object("btnRight")
         btnRight.connect("clicked", self.right)
 
+        # Keys
+        window = builder.get_object("main_window")
+        event_controller = Gtk.EventControllerKey()
+        event_controller.connect("key-pressed", self.event_key_pressed_cb)
+        event_controller.connect("key-released", self.event_key_released_cb)
+        window.add_controller(event_controller)
+
         # Obtain and show the main window
         self.win = builder.get_object("main_window")
         self.win.set_application(self)  # Application will close once it no longer has active windows attached to it
@@ -50,6 +57,12 @@ class MyApp(Adw.Application):
 
     def down(self, button):
         print("Down")
+
+    def event_key_pressed_cb (self, event_controller, keyval, keycode, state):
+        print(f"Key pressed: {keyval} {keycode}")
+
+    def event_key_released_cb (self, event_controller, keyval, keycode, state):
+        print("Key released")
 
 app = MyApp(application_id="com.example.GtkApplication")
 app.run(sys.argv)
