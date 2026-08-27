@@ -19,6 +19,18 @@ class MyApp(Adw.Application):
         button = builder.get_object("button1")
         button.connect("clicked", self.hello)
 
+        btnUp = builder.get_object("btnUp")
+        btnUp.connect("clicked", self.up)
+
+        btnDown = builder.get_object("btnDown")
+        btnDown.connect("clicked", self.down)
+
+        btnLeft = builder.get_object("btnLeft")
+        btnLeft.connect("clicked", self.left)
+
+        btnRight = builder.get_object("btnRight")
+        btnRight.connect("clicked", self.right)
+
         # Obtain and show the main window
         self.win = builder.get_object("main_window")
         self.win.set_application(self)  # Application will close once it no longer has active windows attached to it
@@ -26,6 +38,18 @@ class MyApp(Adw.Application):
 
     def hello(self, button):
         print("World has now been changed!!!")
+
+    def left(self, button):
+        print("Left")
+
+    def right(self, button):
+        print("Right")
+
+    def up(self, button):
+        print("Up")
+
+    def down(self, button):
+        print("Down")
 
 app = MyApp(application_id="com.example.GtkApplication")
 app.run(sys.argv)

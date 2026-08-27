@@ -18,15 +18,30 @@
               </object>
             </child>
             <child>
-              <object class="GtkLabel">
-                <property name="label">Things are fine as is.</property>
+              <object class="GtkButton" id="btnUp">
+                <property name="label">↑</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton" id="btnLeft">
+                <property name="label">←</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton" id="btnRight">
+                <property name="label">→</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton" id="btnDown">
+                <property name="label">↓</property>
               </object>
             </child>
           </object>
         </child>
         <child>
-          <object class="GtkButton" id="button2">
-            <property name="label">Horizontal Button</property>
+          <object class="GtkLabel" id="lblPlaceholder">
+            <property name="label">The 2048 Grid would go here</property>
           </object>
         </child>
       </object>

@@ -1,2 +1,11 @@
 # lionhead2048
-Python and GTK4 practice by implementing the game 2048
+Python and GTK4 practice by implementing the game 2048.
+
+A version of 2048 that lets you think about either lions or rabbits depending on your preference.
+
+## Packages
+
+Ran this command in case I want to use venv later.
+```
+pipenv install --site-packages
+```
