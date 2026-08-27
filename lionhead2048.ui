@@ -44,6 +44,13 @@
             <property name="label">The 2048 Grid would go here</property>
           </object>
         </child>
+        <child>
+          <object class="GtkDrawingArea" id="drawArea">
+            <style>
+              <class/>
+            </style>
+          </object>
+        </child>
       </object>
     </child>
   </object>
