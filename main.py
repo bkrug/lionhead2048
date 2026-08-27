@@ -3,7 +3,7 @@ from pathlib import Path
 import gi
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
-from gi.repository import Gtk, Adw
+from gi.repository import Gtk, Gdk, Adw
 
 class MyApp(Adw.Application):
     def __init__(self, **kwargs):
@@ -35,7 +35,7 @@ class MyApp(Adw.Application):
         window = builder.get_object("main_window")
         event_controller = Gtk.EventControllerKey()
         event_controller.connect("key-pressed", self.event_key_pressed_cb)
-        event_controller.connect("key-released", self.event_key_released_cb)
+        # event_controller.connect("key-released", self.event_key_released_cb)
         window.add_controller(event_controller)
 
         # Obtain and show the main window
@@ -59,10 +59,19 @@ class MyApp(Adw.Application):
         print("Down")
 
     def event_key_pressed_cb (self, event_controller, keyval, keycode, state):
-        print(f"Key pressed: {keyval} {keycode}")
+        #print(f"Key pressed: {keyval} {keycode}")
+        match keyval:
+            case Gdk.KEY_Up:
+                print("Up")
+            case Gdk.KEY_Left:
+                print("Left")
+            case Gdk.KEY_Right:
+                print("Right")
+            case Gdk.KEY_Down:
+                print("Down")
 
-    def event_key_released_cb (self, event_controller, keyval, keycode, state):
-        print("Key released")
+    # def event_key_released_cb (self, event_controller, keyval, keycode, state):
+    #     print("Key released")
 
 app = MyApp(application_id="com.example.GtkApplication")
 app.run(sys.argv)
