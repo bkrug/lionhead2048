@@ -32,7 +32,7 @@ def testNewGame_secondTileIndexBeforeFirstTileIndex_ExpectNoShiftNeeded():
     for row in range(BOARD_SIZE):
         for col in range(BOARD_SIZE):
             if (row, col) not in filled:
-                assert powers[row][col] == Board2048.empty_piece()
+                assert powers[row][col] == Board2048.empty_power()
 
 
 def testNewGame_secondTileIndexAfterFirstTileIndex_ExpectShiftedPastFilledCell():
@@ -63,4 +63,4 @@ def testNewGame_secondTileIndexAfterFirstTileIndex_ExpectShiftedPastFilledCell()
     for row in range(BOARD_SIZE):
         for col in range(BOARD_SIZE):
             if (row, col) not in filled:
-                assert powers[row][col] == Board2048.empty_piece()
+                assert powers[row][col] == Board2048.empty_power()
