@@ -15,3 +15,9 @@ pipenv install --site-packages
 - Python Wrapper Tutorial: https://pygobject.gnome.org/tutorials/index.html
 - Draw Are Tutorial: https://gnome.pages.gitlab.gnome.org/gtk/gtk4/class.DrawingArea.html
 - API Reference: https://gnome.pages.gitlab.gnome.org/gtk/gtk4/index.html
+
+## Intellisense
+
+As a self reminder, if you want to enable pythong intellisense, you need
+- a "python-envs.defaultEnvManager" entry in .vscode/settings.json.
+- type "pipenv --venv" in a terminal to see a venv path, and type "Python: Select Interpreter" in the command palette to select that same path.
