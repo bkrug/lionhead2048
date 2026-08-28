@@ -5,6 +5,7 @@ import cairo
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
 from gi.repository import Gtk, Gdk, Adw  # pyright: ignore[reportMissingModuleSource]
+from powers_of_two import TILE_COLORS
 
 # gi.repository will never have a real *.py file for pylance to find.
 # So I plan to add the above ignore statement, anywhere that I import gi.repository
@@ -84,18 +85,6 @@ class MyApp(Adw.Application):
     # def event_key_released_cb (self, event_controller, keyval, keycode, state):
     #     print("Key released")
 
-    def manual_square(self, ctx: cairo.Context):
-        ctx.move_to(0, Y_OFFSET)
-        ctx.rel_line_to(2 * SIZE, 0)
-        ctx.rel_line_to(0, 2 * SIZE)
-        ctx.rel_line_to(-2 * SIZE, 0)
-        ctx.close_path()
-        ctx.fill()
-
-    def square(self, ctx: cairo.Context):
-        ctx.rectangle(SIZE * 1.5, Y_OFFSET + 10, SIZE, SIZE)
-        ctx.fill()
-
     def text_msg(self, ctx: cairo.Context):
         #te = ctx.text_extents()
         ctx.select_font_face("Serif")
@@ -103,10 +92,24 @@ class MyApp(Adw.Application):
         ctx.move_to(0, Y_OFFSET*10)
         ctx.show_text("Abcdefg")
 
+    def draw_number_box(self, ctx: cairo.Context, position_x: int, position_y: int, exponent: int):        
+        ctx.save()
+        box_color = TILE_COLORS[exponent]
+        ctx.set_source_rgb(box_color[0], box_color[1], box_color[2])
+        ctx.rectangle(SIZE * position_x, SIZE * position_y, SIZE, SIZE)
+        ctx.fill()
+        ctx.restore()
+
+        play_value = 2**exponent
+        text_color: tuple[float, float, float] = (0.8, 0.8, 0.8)
+        ctx.save()
+        ctx.set_source_rgb(text_color[0], text_color[1], text_color[2])
+        ctx.move_to(SIZE * position_x + 2, SIZE * position_y + (SIZE * 0.6))
+        ctx.show_text(f"{play_value}")
+        ctx.restore()
+
     def draw(self, da: Gtk.DrawingArea, ctx: cairo.Context, width: int, height: int):
         print(f"Width: {width}, Height: {height}")
-
-        ctx.set_source_rgb(120, 120, 0)
 
         ctx.set_line_width(SIZE / 4)
         ctx.set_tolerance(0.1)
@@ -114,11 +117,9 @@ class MyApp(Adw.Application):
         ctx.set_line_join(cairo.LINE_JOIN_ROUND)
         ctx.set_dash([SIZE / 4.0, SIZE / 4.0], 0)
 
-        self.manual_square(ctx)
-
-        ctx.set_source_rgb(0, 120, 120)
-        self.square(ctx)
-        self.text_msg(ctx)
+        self.draw_number_box(ctx, 0, 0, 1)
+        self.draw_number_box(ctx, 1, 2, 2)
+        self.draw_number_box(ctx, 3, 3, 8)
 
 
 app = MyApp(application_id="com.example.GtkApplication")

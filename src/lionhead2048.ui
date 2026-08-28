@@ -40,11 +40,6 @@
           </object>
         </child>
         <child>
-          <object class="GtkLabel" id="lblPlaceholder">
-            <property name="label">The 2048 Grid would go here</property>
-          </object>
-        </child>
-        <child>
           <object class="GtkDrawingArea" id="drawArea">
             <property name="content-height">200</property>
             <property name="content-width">200</property>
