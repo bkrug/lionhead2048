@@ -3,7 +3,10 @@ from pathlib import Path
 import gi
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
-from gi.repository import Gtk, Gdk, Adw
+from gi.repository import Gtk, Gdk, Adw  # pyright: ignore[reportMissingModuleSource]
+
+# gi.repository will never have a real *.py file for pylance to find.
+# So I plan to add the above ignore statement, anywhere that I import gi.repository
 
 class MyApp(Adw.Application):
     def __init__(self, **kwargs):
