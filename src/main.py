@@ -118,12 +118,6 @@ class MyApp(Adw.Application):
         ctx.restore()
 
     def draw(self, da: Gtk.DrawingArea, ctx: cairo.Context, width: int, height: int):
-        ctx.set_line_width(SIZE / 4)
-        ctx.set_tolerance(0.1)
-
-        ctx.set_line_join(cairo.LINE_JOIN_ROUND)
-        ctx.set_dash([SIZE / 4.0, SIZE / 4.0], 0)
-
         self.draw_number_box(ctx, 0, 0, 1)
         self.draw_number_box(ctx, 1, 2, 2)
         self.draw_number_box(ctx, 3, 3, 8)
