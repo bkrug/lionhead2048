@@ -90,14 +90,7 @@ class MyApp(Adw.Application):
     # def event_key_released_cb (self, event_controller, keyval, keycode, state):
     #     print("Key released")
 
-    def text_msg(self, ctx: cairo.Context):
-        #te = ctx.text_extents()
-        ctx.select_font_face("Serif")
-        ctx.set_font_size(14)
-        ctx.move_to(0, Y_OFFSET*10)
-        ctx.show_text("Abcdefg")
-
-    def draw_number_box(self, ctx: cairo.Context, position_x: int, position_y: int, exponent: int):
+    def draw_play_piece(self, ctx: cairo.Context, position_x: int, position_y: int, exponent: int):
         box_size = self.play_piece_size()
         font_size = box_size / 4
                 
@@ -118,9 +111,9 @@ class MyApp(Adw.Application):
         ctx.restore()
 
     def draw(self, da: Gtk.DrawingArea, ctx: cairo.Context, width: int, height: int):
-        self.draw_number_box(ctx, 0, 0, 1)
-        self.draw_number_box(ctx, 1, 2, 2)
-        self.draw_number_box(ctx, 3, 3, 8)
+        self.draw_play_piece(ctx, 0, 0, 1)
+        self.draw_play_piece(ctx, 1, 2, 2)
+        self.draw_play_piece(ctx, 3, 3, 8)
 
 
 app = MyApp(application_id="com.example.GtkApplication")
