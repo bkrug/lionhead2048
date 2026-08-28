@@ -85,21 +85,23 @@ class MyApp(Adw.Application):
     #     print("Key released")
 
     def manual_square(self, ctx: cairo.Context):
-        ctx.save()
         ctx.move_to(0, Y_OFFSET)
         ctx.rel_line_to(2 * SIZE, 0)
         ctx.rel_line_to(0, 2 * SIZE)
         ctx.rel_line_to(-2 * SIZE, 0)
         ctx.close_path()
         ctx.fill()
-        ctx.restore()
 
     def square(self, ctx: cairo.Context):
-        ctx.save()
         ctx.rectangle(SIZE * 1.5, Y_OFFSET + 10, SIZE, SIZE)
-        ctx.close_path()
         ctx.fill()
-        ctx.restore()
+
+    def text_msg(self, ctx: cairo.Context):
+        #te = ctx.text_extents()
+        ctx.select_font_face("Serif")
+        ctx.set_font_size(14)
+        ctx.move_to(0, Y_OFFSET*10)
+        ctx.show_text("Abcdefg")
 
     def draw(self, da: Gtk.DrawingArea, ctx: cairo.Context, width: int, height: int):
         print(f"Width: {width}, Height: {height}")
@@ -116,6 +118,7 @@ class MyApp(Adw.Application):
 
         ctx.set_source_rgb(0, 120, 120)
         self.square(ctx)
+        self.text_msg(ctx)
 
 
 app = MyApp(application_id="com.example.GtkApplication")
