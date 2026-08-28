@@ -5,7 +5,9 @@ A version of 2048 that lets you think about either lions or rabbits depending on
 
 ## Packages
 
-Ran this command in case I want to use venv later.
+In order to install packages, it is better to run scripts/boostrap then `pipenv install`.
+
+I ran this command in case I want to use venv later.
 ```
 pipenv install --site-packages
 ```
@@ -18,6 +20,6 @@ pipenv install --site-packages
 
 ## Intellisense
 
-As a self reminder, if you want to enable pythong intellisense, you need
+As a self reminder, if you want to enable python intellisense, you need
 - a "python-envs.defaultEnvManager" entry in .vscode/settings.json.
 - type "pipenv --venv" in a terminal to see a venv path, and type "Python: Select Interpreter" in the command palette to select that same path.

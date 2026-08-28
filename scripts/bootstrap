@@ -1,0 +1,6 @@
+#!/bin/sh
+#
+# Use this script to install dev dependencies,
+# including ones that can't be installed from pipenv
+pipenv install
+pipenv run pip install pygobject-stubs --config-settings=config=Gtk4,Gdk4
