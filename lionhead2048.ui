@@ -46,8 +46,9 @@
         </child>
         <child>
           <object class="GtkDrawingArea" id="drawArea">
-            <style>
-            </style>
+            <property name="content-height">200</property>
+            <property name="content-width">200</property>
+            <style/>
           </object>
         </child>
       </object>

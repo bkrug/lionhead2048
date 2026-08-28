@@ -1,12 +1,16 @@
 import sys
 from pathlib import Path
 import gi
+import cairo
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
 from gi.repository import Gtk, Gdk, Adw  # pyright: ignore[reportMissingModuleSource]
 
 # gi.repository will never have a real *.py file for pylance to find.
 # So I plan to add the above ignore statement, anywhere that I import gi.repository
+
+SIZE = 30
+Y_OFFSET = 15
 
 class MyApp(Adw.Application):
     def __init__(self, **kwargs):
@@ -40,6 +44,10 @@ class MyApp(Adw.Application):
         event_controller.connect("key-pressed", self.event_key_pressed_cb)
         # event_controller.connect("key-released", self.event_key_released_cb)
         window.add_controller(event_controller)
+
+        # Draw
+        drawing_area = builder.get_object("drawArea")
+        drawing_area.set_draw_func(self.draw)
 
         # Obtain and show the main window
         self.win = builder.get_object("main_window")
@@ -75,6 +83,28 @@ class MyApp(Adw.Application):
 
     # def event_key_released_cb (self, event_controller, keyval, keycode, state):
     #     print("Key released")
+
+    def square(self, ctx):
+        ctx.save()
+        ctx.move_to(0, Y_OFFSET)
+        ctx.rel_line_to(2 * SIZE, 0)
+        ctx.rel_line_to(0, 2 * SIZE)
+        ctx.rel_line_to(-2 * SIZE, 0)
+        ctx.close_path()
+        ctx.fill()
+        ctx.restore()  
+
+    def draw(self, da, ctx, width, height):    
+        ctx.set_source_rgb(120, 120, 0)
+
+        ctx.set_line_width(SIZE / 4)
+        ctx.set_tolerance(0.1)
+
+        ctx.set_line_join(cairo.LINE_JOIN_ROUND)
+        ctx.set_dash([SIZE / 4.0, SIZE / 4.0], 0)
+
+        self.square(ctx)
+
 
 app = MyApp(application_id="com.example.GtkApplication")
 app.run(sys.argv)

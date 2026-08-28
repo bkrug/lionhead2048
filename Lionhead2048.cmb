@@ -2,5 +2,5 @@
 <!DOCTYPE cambalache-project SYSTEM "cambalache-project.dtd">
 <!-- Created with Cambalache 1.0.3 -->
 <cambalache-project version="1.0.0" target_tk="gtk-4.0">
-  <ui filename="lionhead2048.ui" sha256="7c4e5f655d3ab14e351ec82514c5814159be3f1b6174a4fad083a302a9a96df0"/>
+  <ui filename="lionhead2048.ui" sha256="c1d5edeffd8c7c767142f87249c38f1f0fb716a2f6d9d56cf9271184cec94b29"/>
 </cambalache-project>
