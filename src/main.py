@@ -17,7 +17,7 @@ class MyApp(Adw.Application):
         super().__init__(**kwargs)
         self.connect('activate', self.on_activate)
 
-    def on_activate(self, app):
+    def on_activate(self, app: Gtk.Application):
         # Create a Builder
         builder = Gtk.Builder()
         builder.add_from_file(str(Path(__file__).with_name("lionhead2048.ui")))
@@ -54,22 +54,22 @@ class MyApp(Adw.Application):
         self.win.set_application(self)  # Application will close once it no longer has active windows attached to it
         self.win.present()
 
-    def hello(self, button):
+    def hello(self, button: Gtk.Button):
         print("World has now been changed!!!")
 
-    def left(self, button):
+    def left(self, button: Gtk.Button):
         print("Left")
 
-    def right(self, button):
+    def right(self, button: Gtk.Button):
         print("Right")
 
-    def up(self, button):
+    def up(self, button: Gtk.Button):
         print("Up")
 
-    def down(self, button):
+    def down(self, button: Gtk.Button):
         print("Down")
 
-    def event_key_pressed_cb (self, event_controller, keyval: int, keycode: int, state):
+    def event_key_pressed_cb (self, event_controller: Gtk.EventControllerKey, keyval: int, keycode: int, state: Gdk.ModifierType):
         #print(f"Key pressed: {keyval} {keycode}")
         match keyval:
             case Gdk.KEY_Up:
