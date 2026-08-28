@@ -1,5 +1,6 @@
 import sys
 from pathlib import Path
+from typing import cast
 import gi
 import cairo
 gi.require_version('Gtk', '4.0')
@@ -14,6 +15,8 @@ SIZE = 30
 Y_OFFSET = 15
 
 class MyApp(Adw.Application):
+
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.connect('activate', self.on_activate)
@@ -43,17 +46,19 @@ class MyApp(Adw.Application):
         window = builder.get_object("main_window")
         event_controller = Gtk.EventControllerKey()
         event_controller.connect("key-pressed", self.event_key_pressed_cb)
-        # event_controller.connect("key-released", self.event_key_released_cb)
         window.add_controller(event_controller)
 
         # Draw
-        drawing_area = builder.get_object("drawArea")
-        drawing_area.set_draw_func(self.draw)
+        self.drawing_area: Gtk.DrawingArea = cast(Gtk.DrawingArea, builder.get_object("drawArea"))
+        self.drawing_area.set_draw_func(self.draw)
 
         # Obtain and show the main window
         self.win = builder.get_object("main_window")
         self.win.set_application(self)  # Application will close once it no longer has active windows attached to it
         self.win.present()
+
+    def play_piece_size(self) -> int:
+        return min(self.drawing_area.get_content_width(), self.drawing_area.get_content_height())
 
     def hello(self, button: Gtk.Button):
         print("World has now been changed!!!")
@@ -92,11 +97,14 @@ class MyApp(Adw.Application):
         ctx.move_to(0, Y_OFFSET*10)
         ctx.show_text("Abcdefg")
 
-    def draw_number_box(self, ctx: cairo.Context, position_x: int, position_y: int, exponent: int):        
+    def draw_number_box(self, ctx: cairo.Context, position_x: int, position_y: int, exponent: int):
+        box_size = self.play_piece_size() / 4
+        font_size = box_size / 4
+                
         ctx.save()
         box_color = TILE_COLORS[exponent]
         ctx.set_source_rgb(box_color[0], box_color[1], box_color[2])
-        ctx.rectangle(SIZE * position_x, SIZE * position_y, SIZE, SIZE)
+        ctx.rectangle(box_size * position_x, box_size * position_y, box_size, box_size)
         ctx.fill()
         ctx.restore()
 
@@ -104,13 +112,12 @@ class MyApp(Adw.Application):
         text_color: tuple[float, float, float] = (0.8, 0.8, 0.8)
         ctx.save()
         ctx.set_source_rgb(text_color[0], text_color[1], text_color[2])
-        ctx.move_to(SIZE * position_x + 2, SIZE * position_y + (SIZE * 0.6))
+        ctx.move_to(box_size * position_x + 2, box_size * position_y + (box_size * 0.6))
+        ctx.set_font_size(font_size)
         ctx.show_text(f"{play_value}")
         ctx.restore()
 
     def draw(self, da: Gtk.DrawingArea, ctx: cairo.Context, width: int, height: int):
-        print(f"Width: {width}, Height: {height}")
-
         ctx.set_line_width(SIZE / 4)
         ctx.set_tolerance(0.1)
 
