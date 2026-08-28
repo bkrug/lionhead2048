@@ -1,10 +1,12 @@
 from powers_of_two import TILE_COLORS
+from piece_maker import PieceMaker
 
 BOARD_SIZE = 4
 
 
 class Board2048:
-    def __init__(self, powers_array=None):
+    def __init__(self, piece_maker: PieceMaker, powers_array=None):
+        self._piece_maker = piece_maker
         if not powers_array:
             powers_array = [0] * (BOARD_SIZE * BOARD_SIZE)
         self._powers = [
