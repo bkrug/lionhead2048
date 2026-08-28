@@ -37,4 +37,6 @@ TILE_COLORS: dict[int, tuple[float, float, float]] = {
     14: (0.2157, 0.0588, 0.5098),  # deep purple
     15: (0.3725, 0.0392, 0.4706),  # deep magenta
     16: (0.5098, 0.0196, 0.2353),  # deep crimson
+    17: (0.5490, 0.1176, 0.0392),  # deep scarlet
+    18: (0.4706, 0.2745, 0.0196),  # deep bronze
 }

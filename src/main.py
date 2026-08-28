@@ -58,7 +58,7 @@ class MyApp(Adw.Application):
         self.win.present()
 
     def play_piece_size(self) -> int:
-        return min(self.drawing_area.get_content_width(), self.drawing_area.get_content_height())
+        return min(self.drawing_area.get_content_width(), self.drawing_area.get_content_height()) / 4
 
     def hello(self, button: Gtk.Button):
         print("World has now been changed!!!")
@@ -98,7 +98,7 @@ class MyApp(Adw.Application):
         ctx.show_text("Abcdefg")
 
     def draw_number_box(self, ctx: cairo.Context, position_x: int, position_y: int, exponent: int):
-        box_size = self.play_piece_size() / 4
+        box_size = self.play_piece_size()
         font_size = box_size / 4
                 
         ctx.save()
