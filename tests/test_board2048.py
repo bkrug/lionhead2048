@@ -18,7 +18,8 @@ class FakePieceMaker:
         return next(self._locations)
 
 
-def test_add_two_pieces_at_locations_14_then_3():
+def testNewGame_firstRandomLocationIsLaterThanSecond_ExpectPiecesInMatchingPositions():
+    # Randomly generate locations at the 14th and 3rd empty locations on the board.
     piece_maker = FakePieceMaker(pieces=[1, 2], locations=[14, 3])
 
     #Act
@@ -36,7 +37,9 @@ def test_add_two_pieces_at_locations_14_then_3():
                 assert powers[row][col] == Board2048.empty_piece()
 
 
-def test_add_two_pieces_at_locations_3_then_13():
+def testNewGame_firstRandomLocationIsEarlierThanSecond_ExpectPiecesInMatchingPositions():
+    # Randomly generate locations at the 3rd and 13th empty locations on the board.
+    # Since the 3rd location is filled in first, the 13th empty location is the 14th location.
     piece_maker = FakePieceMaker(pieces=[1, 2], locations=[3, 13])
 
     #Act
