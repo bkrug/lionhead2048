@@ -7,7 +7,7 @@ def get_board_location(one_dimensional: int):
 def get_board_value(board: list[list[int]], one_dimensional: int):
     return board[int(one_dimensional/4)][one_dimensional%4]
 
-def testNewGame_firstRandomLocationIsLaterThanSecond_ExpectPiecesInMatchingPositions():
+def testNewGame_secondTileIndexBeforeFirstTileIndex_ExpectNoShiftNeeded():
     # Randomly generate locations at the 14th and 3rd empty locations on the board.
     index_14 = 14;
     index_3 = 3;
@@ -35,17 +35,19 @@ def testNewGame_firstRandomLocationIsLaterThanSecond_ExpectPiecesInMatchingPosit
                 assert powers[row][col] == Board2048.empty_piece()
 
 
-def testNewGame_firstRandomLocationIsEarlierThanSecond_ExpectPiecesInMatchingPositions():
+def testNewGame_secondTileIndexAfterFirstTileIndex_ExpectShiftedPastFilledCell():
     # Randomly generate locations at the 3rd and 13th empty locations on the board.
     index_3 = 3;
     index_14 = 14;
+    # The 3rd empty cell is filled first, so among the remaining empty cells,
+    # index_14's cell is now the 13th (index_14 - 1) empty one, not the 14th.
+    index_14_after_index_3_filled = index_14 - 1
     piece_maker = (
         FakePieceMakerBuilder()
         .add_expected_powers(1)
         .add_expected_locations(16, index_3)
         .add_expected_powers(2)
-        # Since the 3rd location is filled in first, the 13th empty location is the 14th location.
-        .add_expected_locations(15, index_14-1)
+        .add_expected_locations(15, index_14_after_index_3_filled)
         .build()
     )
 

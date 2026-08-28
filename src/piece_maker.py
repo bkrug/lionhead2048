@@ -9,6 +9,6 @@ class PieceMaker:
     def get_next_piece(self) -> int:
         return 1 if random.random() < 0.9 else 2
 
-    # Really generates a random number that the caller has to then translate into a free location
     def get_next_location(self, free_spaces: int) -> int:
+        """Return a 0-based index, chosen uniformly among `free_spaces` options, into the board's currently-empty cells listed in row-major order."""
         random.random() * free_spaces

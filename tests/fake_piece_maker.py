@@ -7,6 +7,7 @@ class FakePieceMaker:
         return next(self._pieces)
 
     def get_next_location(self, free_spaces: int) -> int:
+        """Return the next pre-scripted index into the board's currently-empty cells, asserting the caller reported the expected number of empty cells first."""
         expected_free_spaces, location = next(self._locations)
         assert free_spaces == expected_free_spaces
         return location
