@@ -69,7 +69,7 @@ class MyApp(Adw.Application):
     def down(self, button):
         print("Down")
 
-    def event_key_pressed_cb (self, event_controller, keyval, keycode, state):
+    def event_key_pressed_cb (self, event_controller, keyval: int, keycode: int, state):
         #print(f"Key pressed: {keyval} {keycode}")
         match keyval:
             case Gdk.KEY_Up:
@@ -84,7 +84,7 @@ class MyApp(Adw.Application):
     # def event_key_released_cb (self, event_controller, keyval, keycode, state):
     #     print("Key released")
 
-    def square(self, ctx):
+    def manual_square(self, ctx: cairo.Context):
         ctx.save()
         ctx.move_to(0, Y_OFFSET)
         ctx.rel_line_to(2 * SIZE, 0)
@@ -92,9 +92,18 @@ class MyApp(Adw.Application):
         ctx.rel_line_to(-2 * SIZE, 0)
         ctx.close_path()
         ctx.fill()
-        ctx.restore()  
+        ctx.restore()
 
-    def draw(self, da, ctx, width, height):    
+    def square(self, ctx: cairo.Context):
+        ctx.save()
+        ctx.rectangle(SIZE * 1.5, Y_OFFSET + 10, SIZE, SIZE)
+        ctx.close_path()
+        ctx.fill()
+        ctx.restore()
+
+    def draw(self, da: Gtk.DrawingArea, ctx: cairo.Context, width: int, height: int):
+        print(f"Width: {width}, Height: {height}")
+
         ctx.set_source_rgb(120, 120, 0)
 
         ctx.set_line_width(SIZE / 4)
@@ -103,6 +112,9 @@ class MyApp(Adw.Application):
         ctx.set_line_join(cairo.LINE_JOIN_ROUND)
         ctx.set_dash([SIZE / 4.0, SIZE / 4.0], 0)
 
+        self.manual_square(ctx)
+
+        ctx.set_source_rgb(0, 120, 120)
         self.square(ctx)
 
 
