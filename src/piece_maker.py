@@ -2,7 +2,7 @@ import random
 
 
 class PieceMaker:
-    def __init__(self, seed_value: int | None):
+    def __init__(self, seed_value: int | None = None):
         if (seed_value!=None):
             random.seed(seed_value)
 
@@ -11,4 +11,4 @@ class PieceMaker:
 
     def get_next_location(self, free_spaces: int) -> int:
         """Return a 0-based index, chosen uniformly among `free_spaces` options, into the board's currently-empty cells listed in row-major order."""
-        random.random() * free_spaces
+        return int(random.random() * free_spaces)

@@ -1,5 +1,6 @@
 from board2048 import BOARD_SIZE, Board2048
 from .builders import FakePieceMakerBuilder
+from piece_maker import PieceMaker
 
 def get_board_location(one_dimensional: int):
     return (int(one_dimensional/4), one_dimensional%4)

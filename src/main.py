@@ -7,6 +7,8 @@ gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
 from gi.repository import Gtk, Gdk, Adw  # pyright: ignore[reportMissingModuleSource]
 from powers_of_two import TILE_COLORS
+from board2048 import Board2048, BOARD_SIZE
+from piece_maker import PieceMaker
 
 # gi.repository will never have a real *.py file for pylance to find.
 # So I plan to add the above ignore statement, anywhere that I import gi.repository
@@ -15,11 +17,11 @@ SIZE = 30
 Y_OFFSET = 15
 
 class MyApp(Adw.Application):
-
-
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.connect('activate', self.on_activate)
+        piece_maker = PieceMaker()
+        self.game_board = Board2048(piece_maker)
 
     def on_activate(self, app: Gtk.Application):
         # Create a Builder
@@ -101,6 +103,9 @@ class MyApp(Adw.Application):
         ctx.fill()
         ctx.restore()
 
+        if exponent==0:
+            return
+
         play_value = 2**exponent
         text_color: tuple[float, float, float] = (0.8, 0.8, 0.8)
         ctx.save()
@@ -111,9 +116,12 @@ class MyApp(Adw.Application):
         ctx.restore()
 
     def draw(self, da: Gtk.DrawingArea, ctx: cairo.Context, width: int, height: int):
-        self.draw_play_piece(ctx, 0, 0, 1)
-        self.draw_play_piece(ctx, 1, 2, 2)
-        self.draw_play_piece(ctx, 3, 3, 8)
+        powers = self.game_board.get_powers()
+        for r in range(BOARD_SIZE):
+            for c in range(BOARD_SIZE):
+                self.draw_play_piece(ctx, r, c, powers[r][c])       
+        # self.draw_play_piece(ctx, 1, 2, 2)
+        # self.draw_play_piece(ctx, 3, 3, 8)
 
 
 app = MyApp(application_id="com.example.GtkApplication")

@@ -1,4 +1,5 @@
 TILE_COLORS: dict[int, tuple[float, float, float]] = {
+    0: (0, 0, 0),
     1: (0.1176, 0.1176, 0.3137),   # dark blue
     2: (0.1765, 0.0980, 0.3725),   # dark indigo
     3: (0.2941, 0.0784, 0.4314),   # dark violet
