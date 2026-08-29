@@ -11,16 +11,15 @@ class Board2048:
 
     def __init__(self, piece_maker: PieceMaker, powers_array:list[int] | None=None):
         self._piece_maker = piece_maker
-        is_new_game = not powers_array
-        if is_new_game:
-            powers_array = [self.empty_power()] * (BOARD_SIZE * BOARD_SIZE)
-        self._powers = [
-            powers_array[row * BOARD_SIZE:(row + 1) * BOARD_SIZE]
-            for row in range(BOARD_SIZE)
-        ]
-        if is_new_game:
+        if not powers_array:
+            self._powers = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
             self._add_random_piece()
             self._add_random_piece()
+        else:
+            self._powers = [
+                powers_array[row * BOARD_SIZE:(row + 1) * BOARD_SIZE]
+                for row in range(BOARD_SIZE)
+            ]
 
     def _add_random_piece(self) -> None:
         free_locations = [
