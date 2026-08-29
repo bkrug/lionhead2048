@@ -34,7 +34,27 @@ class Board2048:
         self._powers[row][col] = self._piece_maker.get_next_piece()
 
     def move_up(self):
-        a = 0
+        for col in range(BOARD_SIZE):
+            column_values = [self._powers[row][col] for row in range(BOARD_SIZE)]
+            merged_values = self._slide_and_merge(column_values)
+            for row in range(BOARD_SIZE):
+                self._powers[row][col] = merged_values[row]
+        self._add_random_piece()
+
+    @staticmethod
+    def _slide_and_merge(values: list[int]) -> list[int]:
+        non_empty_powers = [value for value in values if value != Board2048.empty_power()]
+        merged: list[int] = []
+        index = 0
+        while index < len(non_empty_powers):
+            if index + 1 < len(non_empty_powers) and non_empty_powers[index] == non_empty_powers[index + 1]:
+                merged.append(non_empty_powers[index] + 1)
+                index += 2
+            else:
+                merged.append(non_empty_powers[index])
+                index += 1
+        merged.extend([Board2048.empty_power()] * (len(values) - len(merged)))
+        return merged
 
     def move_down(self):
         a = 0
