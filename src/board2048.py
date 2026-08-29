@@ -50,10 +50,15 @@ class Board2048:
         self._add_random_piece()
 
     def move_left(self):
-        a = 0
+        for row in range(BOARD_SIZE):
+            self._powers[row] = self._slide_and_merge(self._powers[row])
+        self._add_random_piece()
 
     def move_right(self):
-        a = 0
+        for row in range(BOARD_SIZE):
+            merged_values = self._slide_and_merge(list(reversed(self._powers[row])))
+            self._powers[row] = list(reversed(merged_values))
+        self._add_random_piece()
 
     @staticmethod
     def _slide_and_merge(values: list[int]) -> list[int]:
