@@ -1,4 +1,4 @@
-from ..fake_piece_maker import FakePieceMaker
+from .fake_piece_maker import FakePieceMaker
 
 class FakePieceMakerBuilder:
     def __init__(self):

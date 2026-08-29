@@ -33,6 +33,18 @@ class Board2048:
         row, col = free_locations[location_index]
         self._powers[row][col] = self._piece_maker.get_next_piece()
 
+    def move_up(self):
+        a = 0
+
+    def move_down(self):
+        a = 0
+
+    def move_left(self):
+        a = 0
+
+    def move_right(self):
+        a = 0
+
     def get_powers(self):
         return self._powers
 
