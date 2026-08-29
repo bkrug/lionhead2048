@@ -26,9 +26,10 @@ As a self reminder, if you want to enable python intellisense, you need
 - a "python-envs.defaultEnvManager" entry in .vscode/settings.json.
 - type "pipenv --venv" in a terminal to see a venv path, and type "Python: Select Interpreter" in the command palette to select that same path.
 
-## Improvements
+## Possible Improvements
 
-I think there is a bug in my code.
-If all of the pieces are already flushed towards one direction,
-then presing the arrow key for that direction shouldn't do anything.
-It shouldn't add a new piece to the board either.
+- Display a label on the left-hand side when the user reaches 2048 or any higher number.
+- React to Desktop Environment changes between light and dark mode. Change the piece colors accordingly.
+- Clean up the UI a bit. Make the arrow buttons smaller. Add some boarders between the game field and the buttons.
+- Add an "Are You Sure?" question before creating a new game.
+- Add animation when the pieces move
