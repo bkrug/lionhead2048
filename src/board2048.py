@@ -1,8 +1,6 @@
-from powers_of_two import TILE_COLORS
 from piece_maker import PieceMaker
 
 BOARD_SIZE = 4
-
 
 class Board2048:
     @staticmethod
@@ -33,31 +31,48 @@ class Board2048:
         self._powers[row][col] = self._piece_maker.get_next_piece()
 
     def move_up(self):
+        changed = False
         for col in range(BOARD_SIZE):
             column_values = [self._powers[row][col] for row in range(BOARD_SIZE)]
             merged_values = self._slide_and_merge(column_values)
+            if merged_values != column_values:
+                changed = True
             for row in range(BOARD_SIZE):
                 self._powers[row][col] = merged_values[row]
-        self._add_random_piece()
+        if changed:
+            self._add_random_piece()
 
     def move_down(self):
+        changed = False
         for col in range(BOARD_SIZE):
             column_values = [self._powers[row][col] for row in range(BOARD_SIZE)]
             merged_values = list(reversed(self._slide_and_merge(list(reversed(column_values)))))
+            if merged_values != column_values:
+                changed = True
             for row in range(BOARD_SIZE):
                 self._powers[row][col] = merged_values[row]
-        self._add_random_piece()
+        if changed:
+            self._add_random_piece()
 
     def move_left(self):
+        changed = False
         for row in range(BOARD_SIZE):
-            self._powers[row] = self._slide_and_merge(self._powers[row])
-        self._add_random_piece()
+            merged_values = self._slide_and_merge(self._powers[row])
+            if merged_values != self._powers[row]:
+                changed = True
+            self._powers[row] = merged_values
+        if changed:
+            self._add_random_piece()
 
     def move_right(self):
+        changed = False
         for row in range(BOARD_SIZE):
-            merged_values = self._slide_and_merge(list(reversed(self._powers[row])))
-            self._powers[row] = list(reversed(merged_values))
-        self._add_random_piece()
+            merged_values = list(reversed(self._slide_and_merge(list(reversed(self._powers[row])))))
+            if merged_values != self._powers[row]:
+                changed = True
+            self._powers[row] = merged_values
+        if changed:
+            self._add_random_piece()
 
     @staticmethod
     def _slide_and_merge(values: list[int]) -> list[int]:
