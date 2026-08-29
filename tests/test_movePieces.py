@@ -43,3 +43,42 @@ def testMoveUp_noPiecesCanMerge_expectExistingPiecesToMove_expectOneNewPiece():
     #Assert
     for flattend_index in range(TOTAL_BOARD_POSITIONS):
         assert expected_board[flattend_index] == actual_board[flattend_index]
+
+def testMoveUp_somePiecesCanMerge_expectMergedPieces_expectOneNewPiece():
+    # Randomly generate locations at the 14th and 3rd empty locations on the board.
+    index_8 = 8;
+    #
+    filled_positions = 5
+    piece_maker = (
+        FakePieceMakerBuilder()
+        .add_expected_powers(1)
+        .add_expected_locations(
+            TOTAL_BOARD_POSITIONS - filled_positions,
+            index_8 - filled_positions)
+        .build()
+    )
+    # Column 0: New piece should not auto-merge with old piece
+    # Column 1: Non-consecutive pieces can merge
+    # Column 2: Consecutive pieces can merge
+    # Column 3: Four identical pieces will only become two identical pieces
+    initial_board = [
+        1, 0, 3, 2,
+        0, 1, 3, 2,
+        0, 0, 0, 2,
+        0, 1, 0, 2,
+    ]
+    expected_board = [
+        1, 2, 4, 3,
+        0, 0, 0, 3,
+        1, 0, 0, 0,
+        0, 0, 0, 0,
+    ]
+
+    #Act
+    board = Board2048(piece_maker, initial_board)
+    board.move_up()
+    actual_board = [power for row in board.get_powers() for power in row]
+
+    #Assert
+    for flattend_index in range(TOTAL_BOARD_POSITIONS):
+        assert expected_board[flattend_index] == actual_board[flattend_index]
