@@ -5,7 +5,9 @@ A version of 2048 that lets you think about either lions or rabbits depending on
 
 ## Packages
 
-In order to install packages, it is better to run scripts/boostrap then `pipenv install`.
+In order to install packages, it is better to run `scripts/boostrap` then `pipenv install`.
+
+### About venv
 
 I ran this command in case I want to use venv later.
 ```
