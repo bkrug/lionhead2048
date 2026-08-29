@@ -26,7 +26,9 @@ As a self reminder, if you want to enable python intellisense, you need
 - a "python-envs.defaultEnvManager" entry in .vscode/settings.json.
 - type "pipenv --venv" in a terminal to see a venv path, and type "Python: Select Interpreter" in the command palette to select that same path.
 
-TODO: I think there is a bug.
+## Improvements
+
+I think there is a bug in my code.
 If all of the pieces are already flushed towards one direction,
 then presing the arrow key for that direction shouldn't do anything.
 It shouldn't add a new piece to the board either.
