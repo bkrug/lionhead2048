@@ -76,4 +76,4 @@ class Board2048:
         return merged
 
     def get_powers(self):
-        return self._powers
+        return [row.copy() for row in self._powers]
