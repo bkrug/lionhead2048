@@ -29,8 +29,8 @@ class MyApp(Adw.Application):
         builder.add_from_file(str(Path(__file__).with_name("lionhead2048.ui")))
 
         # Obtain the button widget and connect it to a function
-        button = builder.get_object("button1")
-        button.connect("clicked", self.hello)
+        btnNewGame = builder.get_object("btnNewGame")
+        btnNewGame.connect("clicked", self.newGame)
 
         btnUp = builder.get_object("btnUp")
         btnUp.connect("clicked", self.up)
@@ -62,8 +62,10 @@ class MyApp(Adw.Application):
     def play_piece_size(self) -> int:
         return min(self.drawing_area.get_content_width(), self.drawing_area.get_content_height()) / 4
 
-    def hello(self, button: Gtk.Button):
-        print("World has now been changed!!!")
+    def newGame(self, button: Gtk.Button):
+        piece_maker = PieceMaker()
+        self.game_board = Board2048(piece_maker)
+        self.drawing_area.queue_draw()
 
     def left(self, button: Gtk.Button):
         self.game_board.move_left()

@@ -13,8 +13,8 @@
           <object class="GtkBox">
             <property name="orientation">vertical</property>
             <child>
-              <object class="GtkButton" id="button1">
-                <property name="label">Change the World</property>
+              <object class="GtkButton" id="btnNewGame">
+                <property name="label">New Game</property>
               </object>
             </child>
             <child>
