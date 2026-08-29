@@ -77,3 +77,9 @@ class Board2048:
 
     def get_powers(self):
         return [row.copy() for row in self._powers]
+
+    def get_max_power(self):
+        return 0
+
+    def get_max_value(self):
+        return 0
