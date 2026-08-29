@@ -1,25 +1,3 @@
-from enum import Enum
-
-
-class PowersOfTwo(Enum):
-    N2 = 1
-    N4 = 2
-    N8 = 3
-    N16 = 4
-    N32 = 5
-    N64 = 6
-    N128 = 7
-    N256 = 8
-    N512 = 9
-    N1024 = 10
-    N2048 = 11
-    N4096 = 12
-    N8192 = 13
-    N16384 = 14
-    N32768 = 15
-    N65536 = 16
-
-
 TILE_COLORS: dict[int, tuple[float, float, float]] = {
     1: (0.1176, 0.1176, 0.3137),   # dark blue
     2: (0.1765, 0.0980, 0.3725),   # dark indigo
