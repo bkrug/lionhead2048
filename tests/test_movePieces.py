@@ -114,6 +114,40 @@ def testMoveLeft_noPiecesCanMerge_expectExistingPiecesToMove_expectOneNewPiece()
     for flattend_index in range(TOTAL_BOARD_POSITIONS):
         assert expected_board[flattend_index] == actual_board[flattend_index]
 
+def testMoveRight_noPiecesCanMerge_expectExistingPiecesToMove_expectOneNewPiece():
+    # The new piece lands at the 4th free cell (flat index 8, i.e. row 2, column 0).
+    free_cell_position = 3
+    filled_positions = 8
+    piece_maker = (
+        FakePieceMakerBuilder()
+        .add_expected_powers(2)
+        .add_expected_locations(
+            TOTAL_BOARD_POSITIONS - filled_positions,
+            free_cell_position)
+        .build()
+    )
+    initial_board = [
+        5, 0, 3, 1,
+        0, 1, 5, 0,
+        0, 0, 0, 3,
+        0, 4, 0, 2,
+    ]
+    expected_board = [
+        0, 5, 3, 1,
+        0, 0, 1, 5,
+        2, 0, 0, 3,
+        0, 0, 4, 2,
+    ]
+
+    #Act
+    board = Board2048(piece_maker, initial_board)
+    board.move_right()
+    actual_board = [power for row in board.get_powers() for power in row]
+
+    #Assert
+    for flattend_index in range(TOTAL_BOARD_POSITIONS):
+        assert expected_board[flattend_index] == actual_board[flattend_index]
+
 def testMoveUp_somePiecesCanMerge_expectMergedPieces_expectOneNewPiece():
     # Randomly generate locations at the 14th and 3rd empty locations on the board.
     index_8 = 8;
@@ -226,6 +260,44 @@ def testMoveLeft_somePiecesCanMerge_expectMergedPieces_expectOneNewPiece():
     #Act
     board = Board2048(piece_maker, initial_board)
     board.move_left()
+    actual_board = [power for row in board.get_powers() for power in row]
+
+    #Assert
+    for flattend_index in range(TOTAL_BOARD_POSITIONS):
+        assert expected_board[flattend_index] == actual_board[flattend_index]
+
+def testMoveRight_somePiecesCanMerge_expectMergedPieces_expectOneNewPiece():
+    # The new piece lands at the 4th free cell (flat index 4, i.e. row 1, column 0).
+    free_cell_position = 3
+    filled_positions = 5
+    piece_maker = (
+        FakePieceMakerBuilder()
+        .add_expected_powers(1)
+        .add_expected_locations(
+            TOTAL_BOARD_POSITIONS - filled_positions,
+            free_cell_position)
+        .build()
+    )
+    # Row 0: New piece should not auto-merge with old piece
+    # Row 1: Non-consecutive pieces can merge
+    # Row 2: Consecutive pieces can merge
+    # Row 3: Four identical pieces will only become two identical pieces
+    initial_board = [
+        1, 0, 0, 0,
+        0, 1, 0, 1,
+        3, 3, 0, 0,
+        2, 2, 2, 2,
+    ]
+    expected_board = [
+        0, 0, 0, 1,
+        1, 0, 0, 2,
+        0, 0, 0, 4,
+        0, 0, 3, 3,
+    ]
+
+    #Act
+    board = Board2048(piece_maker, initial_board)
+    board.move_right()
     actual_board = [power for row in board.get_powers() for power in row]
 
     #Assert
