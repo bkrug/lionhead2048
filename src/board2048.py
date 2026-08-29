@@ -12,7 +12,7 @@ class Board2048:
     def __init__(self, piece_maker: PieceMaker, powers_array:list[int] | None=None):
         self._piece_maker = piece_maker
         if not powers_array:
-            self._powers = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
+            self._powers = [[self.empty_power()] * BOARD_SIZE for _ in range(BOARD_SIZE)]
             self._add_random_piece()
             self._add_random_piece()
         else:
