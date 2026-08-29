@@ -29,6 +29,7 @@ As a self reminder, if you want to enable python intellisense, you need
 ## Possible Improvements
 
 - Display a label on the left-hand side when the user reaches 2048 or any higher number.
+- When we use arrow keys on the keyboard, prevent buttons in the desktop form from being highlighted.
 - React to Desktop Environment changes between light and dark mode. Change the piece colors accordingly.
 - Clean up the UI a bit. Make the arrow buttons smaller. Add some boarders between the game field and the buttons.
 - Add an "Are You Sure?" question before creating a new game.
