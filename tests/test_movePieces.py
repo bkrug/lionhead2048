@@ -303,3 +303,119 @@ def testMoveRight_somePiecesCanMerge_expectMergedPieces_expectOneNewPiece():
     #Assert
     for flattend_index in range(TOTAL_BOARD_POSITIONS):
         assert expected_board[flattend_index] == actual_board[flattend_index]
+
+def testMoveUp_noPiecesCanMoveAtAll_expectNoNewPiecesOrChanges():
+    # This random number generator shouldn't get called.
+    # It is only configured here so that tests can fail cleanly.
+    filled_positions = 8
+    piece_maker = (
+        FakePieceMakerBuilder()
+        .add_expected_powers(1)
+        .add_expected_locations(
+            TOTAL_BOARD_POSITIONS - filled_positions,
+            7)
+        .build()
+    )
+    # All pieces are as high up as they can go
+    initial_board = [
+        5, 1, 3, 1,
+        0, 2, 5, 3,
+        0, 0, 1, 0,
+        0, 0, 0, 0,
+    ]
+
+    #Act
+    board = Board2048(piece_maker, initial_board)
+    board.move_up()
+    actual_board = [power for row in board.get_powers() for power in row]
+
+    #Assert
+    for flattend_index in range(TOTAL_BOARD_POSITIONS):
+        assert initial_board[flattend_index] == actual_board[flattend_index]
+
+def testMoveDown_noPiecesCanMoveAtAll_expectNoNewPiecesOrChanges():
+    # This random number generator shouldn't get called.
+    # It is only configured here so that tests can fail cleanly.
+    filled_positions = 8
+    piece_maker = (
+        FakePieceMakerBuilder()
+        .add_expected_powers(1)
+        .add_expected_locations(
+            TOTAL_BOARD_POSITIONS - filled_positions,
+            7)
+        .build()
+    )
+    # All pieces are as low down as they can go
+    initial_board = [
+        0, 0, 0, 0,
+        0, 0, 1, 0,
+        0, 2, 5, 3,
+        5, 1, 3, 1,
+    ]
+
+    #Act
+    board = Board2048(piece_maker, initial_board)
+    board.move_down()
+    actual_board = [power for row in board.get_powers() for power in row]
+
+    #Assert
+    for flattend_index in range(TOTAL_BOARD_POSITIONS):
+        assert initial_board[flattend_index] == actual_board[flattend_index]
+
+def testMoveLeft_noPiecesCanMoveAtAll_expectNoNewPiecesOrChanges():
+    # This random number generator shouldn't get called.
+    # It is only configured here so that tests can fail cleanly.
+    filled_positions = 8
+    piece_maker = (
+        FakePieceMakerBuilder()
+        .add_expected_powers(1)
+        .add_expected_locations(
+            TOTAL_BOARD_POSITIONS - filled_positions,
+            7)
+        .build()
+    )
+    # All pieces are as far left as they can go
+    initial_board = [
+        5, 1, 3, 1,
+        2, 5, 3, 0,
+        1, 0, 0, 0,
+        0, 0, 0, 0,
+    ]
+
+    #Act
+    board = Board2048(piece_maker, initial_board)
+    board.move_left()
+    actual_board = [power for row in board.get_powers() for power in row]
+
+    #Assert
+    for flattend_index in range(TOTAL_BOARD_POSITIONS):
+        assert initial_board[flattend_index] == actual_board[flattend_index]
+
+def testMoveRight_noPiecesCanMoveAtAll_expectNoNewPiecesOrChanges():
+    # This random number generator shouldn't get called.
+    # It is only configured here so that tests can fail cleanly.
+    filled_positions = 8
+    piece_maker = (
+        FakePieceMakerBuilder()
+        .add_expected_powers(1)
+        .add_expected_locations(
+            TOTAL_BOARD_POSITIONS - filled_positions,
+            7)
+        .build()
+    )
+    # All pieces are as far right as they can go
+    initial_board = [
+        1, 3, 1, 5,
+        0, 3, 5, 2,
+        0, 0, 0, 1,
+        0, 0, 0, 0,
+    ]
+
+    #Act
+    board = Board2048(piece_maker, initial_board)
+    board.move_right()
+    actual_board = [power for row in board.get_powers() for power in row]
+
+    #Assert
+    for flattend_index in range(TOTAL_BOARD_POSITIONS):
+        assert initial_board[flattend_index] == actual_board[flattend_index]
