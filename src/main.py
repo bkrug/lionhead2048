@@ -66,31 +66,35 @@ class MyApp(Adw.Application):
         print("World has now been changed!!!")
 
     def left(self, button: Gtk.Button):
-        print("Left")
+        self.game_board.move_left()
+        self.drawing_area.queue_draw()
 
     def right(self, button: Gtk.Button):
-        print("Right")
+        self.game_board.move_right()
+        self.drawing_area.queue_draw()
 
     def up(self, button: Gtk.Button):
-        print("Up")
+        self.game_board.move_up()
+        self.drawing_area.queue_draw()
 
     def down(self, button: Gtk.Button):
-        print("Down")
+        self.game_board.move_down()
+        self.drawing_area.queue_draw()
 
     def event_key_pressed_cb (self, event_controller: Gtk.EventControllerKey, keyval: int, keycode: int, state: Gdk.ModifierType):
         #print(f"Key pressed: {keyval} {keycode}")
         match keyval:
             case Gdk.KEY_Up:
-                print("Up")
+                self.game_board.move_up()
             case Gdk.KEY_Left:
-                print("Left")
+                self.game_board.move_left()
             case Gdk.KEY_Right:
-                print("Right")
+                self.game_board.move_right()
             case Gdk.KEY_Down:
-                print("Down")
-
-    # def event_key_released_cb (self, event_controller, keyval, keycode, state):
-    #     print("Key released")
+                self.game_board.move_down()
+            case _:
+                return
+        self.drawing_area.queue_draw()
 
     def draw_play_piece(self, ctx: cairo.Context, position_x: int, position_y: int, exponent: int):
         box_size = self.play_piece_size()
@@ -117,11 +121,13 @@ class MyApp(Adw.Application):
 
     def draw(self, da: Gtk.DrawingArea, ctx: cairo.Context, width: int, height: int):
         powers = self.game_board.get_powers()
+        for row in powers:
+            print(f"{row[0]} {row[1]} {row[2]} {row[3]}")
+        print(f"")
+
         for r in range(BOARD_SIZE):
             for c in range(BOARD_SIZE):
-                self.draw_play_piece(ctx, r, c, powers[r][c])       
-        # self.draw_play_piece(ctx, 1, 2, 2)
-        # self.draw_play_piece(ctx, 3, 3, 8)
+                self.draw_play_piece(ctx, c, r, powers[r][c])
 
 
 app = MyApp(application_id="com.example.GtkApplication")
