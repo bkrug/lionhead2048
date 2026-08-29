@@ -82,4 +82,9 @@ class Board2048:
         return max(power for row in self._powers for power in row)
 
     def get_max_value(self):
-        return 2 ** self.get_max_power()
+        found_max = self.get_max_power()
+        if found_max == 0:
+            # 2 ** 0 results in 1, which is not a valid value on the gameboard.
+            return 0
+        else:
+            return 2 ** found_max
