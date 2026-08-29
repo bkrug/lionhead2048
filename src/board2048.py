@@ -77,9 +77,3 @@ class Board2048:
 
     def get_powers(self):
         return self._powers
-
-    def get_values(self):
-        return [[2 ** power for power in row] for row in self._powers]
-
-    def get_colors(self):
-        return [[TILE_COLORS.get(power) for power in row] for row in self._powers]
